@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include <fstream>
+#include <cstdlib>
 #include "classHeader.hpp"
 
 using namespace std;
@@ -22,8 +23,16 @@ int main(int argc, char *argv[])
 	infile.open(argv[1]);
 	if (!infile.is_open())
 	{
-
+		cout << "Could not open file" << endl;
+		exit(EXIT_FAILURE);
 	}
+
+	vector<point> vin1, vin2, vout;
+
+	while (getline(infile, s)) // See spring lab 5
+	{
+		vin1 << s << endl;
+			}
 
 	return 0;
 }
