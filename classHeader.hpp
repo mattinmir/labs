@@ -29,16 +29,16 @@ public:
 	void set_x(double new_x);
 
 	void set_y(double new_y);
+	
+	double get_x() const;
 
-	double get_x();
+	double get_y() const;
 
-	double get_y();
+	std::string get_point() const;
 
-	std::string get_point();
+	double get_magnitude() const;
 
-	double get_magnitude();
-
-	double find_distance_to(point p2);
+	double find_distance_to(point p2) const;
 
 	void reflect();
 
@@ -46,21 +46,21 @@ public:
 
 	std::string str();
 
-	bool operator== (point p);
-
-	bool operator< (point p);
-
-	bool operator> (point p);
-
 private:
 	double x;
 	double y;
 	double magnitude;
 
-	double sq(double num);
+	double sq(double num) const;
 
 	void set_magnitude();
 };
+
+bool operator== (point p1, point p2);
+
+bool operator< (point p1, point p2);
+
+bool operator> (point p1, point p2);
 
 class triangle
 {
@@ -77,6 +77,7 @@ private:
 	point p2;
 	point p3;
 };
+
 
 
 #endif /* CLASSHEADER_H_ */

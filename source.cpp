@@ -3,38 +3,32 @@
 #include <sstream>
 #include <cmath>
 #include <vector>
+#include <fstream>
 #include "classHeader.hpp"
 
 using namespace std;
 
-int get_farthest_point(vector<point> points);
-int member_point_unordsearch(point p, vector<point> v);
-int member_point_binsearch(point p, vector<point> v);
+int get_farthest_point(const vector<point> &points);
+int member_point(const vector<point> &v, const point p, bool ordered);
+int member_point_unordsearch(const vector<point> &v, const point p);
+int member_point_binsearch(const vector<point> &v, const point p, int imin, int imax);
+vector<point> pointdup(const vector<point> &v1, const vector<point> &v2, bool v2_ordered);
 
-
-int main()
+int main(int argc, char *argv[])
 {
-	vector<point> points;
+	ifstream infile;
+	
 
-	point p1(2, 2);
-	point p2(3, 3);
-	point p3(1, 1);
-	point p4(8, 7);
-	point p5(3, 4);
-	point p6(-6, 1);
+	infile.open(argv[1]);
+	if (!infile.is_open())
+	{
 
-	points.push_back(p1);
-	points.push_back(p2);
-	points.push_back(p3);
-	points.push_back(p4);
-	points.push_back(p5);
-	points.push_back(p6);
+	}
 
-	cout << member_point_unordsearch (point(4,3), points)<< endl;
 	return 0;
 }
 
-int get_farthest_point(vector<point> points)
+int get_farthest_point(const vector<point> &points)
 {
 	int index = 0;
 	for (unsigned int i = 1; i < points.size(); i++)
@@ -46,7 +40,15 @@ int get_farthest_point(vector<point> points)
 	return index;
 }
 
-int member_point_unordsearch(point p, vector<point> v)
+int member_point(const vector<point> &v, const point p, bool ordered = false)
+{
+	if (ordered)
+		return member_point_binsearch(v, p, 0, v.size());
+	else
+		return member_point_unordsearch(v, p);
+}
+
+int member_point_unordsearch(const vector<point> &v, point p)
 {
 	unsigned int index = 0;
 
@@ -58,30 +60,30 @@ int member_point_unordsearch(point p, vector<point> v)
 
 	return v.size();
 }
-/*
-int member_point_binsearch(vector<point> v, point p, int imin, int imax)
+
+int member_point_binsearch(const vector<point> &v, const point p, int imin, int imax)
 {
+	if (imax <= imin)
+		return v.size();
+	else
+	{
+		int imid = (imax - imin) / 2;
+		if (v.at(imid) > p)
+			return member_point_binsearch(v, p, imin, imid - 1);
+		else if (v.at(imid) < p)
+			return member_point_binsearch(v, p, imid + 1, imax);
+		else return imid;
+	}
+}
 
-	// test if array is empty
-	  if (imax < imin)
-	    // set is empty, so return value showing not found
-	    return v.size();
-	  else
-	    {
-	      // calculate midpoint to cut set in half
-	      int imid = (imax - imin) / 2;
+vector<point> pointdup(const vector<point> &v1, const vector<point> &v2, bool v2_ordered)
+{
+	vector<point> v3;
+	for (int i = 0; i < v1.size(); i++)
+	{
+		if (member_point(v2, v1.at(i), v2_ordered))
+			v3.push_back(v1.at(i));
+	}
 
-	      // three-way comparison
-	      if (v[imid] > key)
-	        // key is in lower subset
-	        return member_point_binsearch(v, key, imin, imid-1);
-	      else if (v[imid] < key)
-	        // key is in upper subset
-	        return binary_search(A, key, imid+1, imax);
-	      else
-	        // key has been found
-	        return imid;
-	    }
-
-
-}*/
+	return v3;
+}

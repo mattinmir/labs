@@ -23,17 +23,17 @@ void point::set_y(double new_y)
 	set_magnitude();
 }
 
-double point::get_x()
+double point::get_x() const
 {
 	return x;
 }
 
-double point::get_y()
+double point::get_y() const
 {
 	return y;
 }
 
-std::string point::get_point()
+std::string point::get_point() const
 {
 	std::stringstream ss;
 	std::string coord;
@@ -44,12 +44,12 @@ std::string point::get_point()
 	return coord;
 }
 
-double point::get_magnitude()
+double point::get_magnitude() const
 {
 	return magnitude;
 }
 
-double point::find_distance_to(point p2)
+double point::find_distance_to(point p2) const
 {
 	return sqrt(sq(x - p2.x) + sq(y - p2.y));
 }
@@ -67,20 +67,21 @@ void point::translate(point p)
 	set_magnitude();
 }
 
-bool point::operator== (point p)
+bool operator== (point p1, point p2) 
 {
-	return (x == p.x) && (y = p.y);
+	return (p1.get_x() == p2.get_x()) && (p1.get_y() == p2.get_y());
 }
 
-bool point::operator< (point p)
+bool operator< (point p1, point p2)
 {
-	return (magnitude < p.magnitude);
+	return (p1.get_magnitude() < p2.get_magnitude());
 }
 
-bool point::operator> (point p)
+bool operator>(point p1, point p2)
 {
-	return (magnitude > p.magnitude);
+	return  (p1.get_magnitude() > p2.get_magnitude());
 }
+
 
 std::string point:: str()
 {
@@ -91,7 +92,7 @@ std::string point:: str()
 	return str;
 }
 
-double point::sq(double num)
+double point::sq(const double num) const
 {
 	return num * num;
 }
