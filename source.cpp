@@ -16,9 +16,12 @@ int member_point_binsearch(const vector<point> &v, const point p, int imin, int 
 vector<point> pointdup(const vector<point> &v1, const vector<point> &v2, bool v2_ordered);
 
 int main(int argc, char *argv[])
+// argv = {-, point file 1, point file 2, is point file 2 ordered bool}
 {
 	ifstream infile;
-	
+	string line;
+	vector<point> vin1, vin2, vout;
+	double x, y;
 
 	infile.open(argv[1]);
 	if (!infile.is_open())
@@ -26,13 +29,33 @@ int main(int argc, char *argv[])
 		cout << "Could not open file" << endl;
 		exit(EXIT_FAILURE);
 	}
-
-	vector<point> vin1, vin2, vout;
-
-	while (getline(infile, s)) // See spring lab 5
+	while (infile >> x >> y) // See spring lab 5
 	{
-		vin1 << s << endl;
-			}
+		vin1.push_back(point(x, y));	}	infile.close();
+
+	infile.open(argv[2]);
+	if (!infile.is_open())
+	{
+		cout << "Could not open file" << endl;
+		exit(EXIT_FAILURE);
+	}
+	while (infile >> x >> y) // See spring lab 5
+	{
+		vin2.push_back(point(x, y));	}
+	infile.close();
+
+	vout = pointdup(vin1, vin2, argv[3]);
+
+	ofstream outfile("vector3.txt");
+	if (!outfile.is_open())
+	{
+		cout << "Could not open file" << endl;
+		exit(EXIT_FAILURE);
+	}
+	for (unsigned int i = 0; i < vout.size(); i++)
+	{
+		outfile << '(' << vout.at(i).get_x() << ',' << vout.at(i).get_x() << ')' << endl;
+	}
 
 	return 0;
 }
