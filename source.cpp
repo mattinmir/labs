@@ -13,7 +13,7 @@ int get_farthest_point(const vector<point> &points);
 int member_point(const vector<point> &v, const point p, bool ordered);
 int member_point_unordsearch(const vector<point> &v, const point p);
 int member_point_binsearch(const vector<point> &v, const point p, int imin, int imax);
-vector<point> pointdup(const vector<point> &v1, const vector<point> &v2, bool v2_ordered);
+void pointdup(const vector<point> &v1, const vector<point> &v2, vector<point> &v3, bool v2_ordered);
 
 int main(int argc, char *argv[])
 // argv = {-, point file 1, point file 2, is point file 2 ordered bool}
@@ -31,7 +31,9 @@ int main(int argc, char *argv[])
 	}
 	while (infile >> x >> y) // See spring lab 5
 	{
-		vin1.push_back(point(x, y));	}	infile.close();
+		vin1.push_back(point(x, y));
+	}
+	infile.close();
 
 	infile.open(argv[2]);
 	if (!infile.is_open())
@@ -41,10 +43,17 @@ int main(int argc, char *argv[])
 	}
 	while (infile >> x >> y) // See spring lab 5
 	{
-		vin2.push_back(point(x, y));	}
+		vin2.push_back(point(x, y));
+	}
 	infile.close();
 
-	vout = pointdup(vin1, vin2, argv[3]);
+	bool ordered;
+	if (string(argv[3]) == "false")
+		ordered = false;
+	else
+		ordered = true;
+
+	pointdup(vin1, vin2, vout, ordered);
 
 	ofstream outfile("vector3.txt");
 	if (!outfile.is_open())
@@ -54,7 +63,7 @@ int main(int argc, char *argv[])
 	}
 	for (unsigned int i = 0; i < vout.size(); i++)
 	{
-		outfile << '(' << vout.at(i).get_x() << ',' << vout.at(i).get_x() << ')' << endl;
+		outfile << '(' << vout.at(i).get_x() << ',' << vout.at(i).get_y() << ')' << endl;
 	}
 
 	return 0;
@@ -75,7 +84,7 @@ int get_farthest_point(const vector<point> &points)
 int member_point(const vector<point> &v, const point p, bool ordered = false)
 {
 	if (ordered)
-		return member_point_binsearch(v, p, 0, v.size());
+		return member_point_binsearch(v, p, 0, v.size() - 1);
 	else
 		return member_point_unordsearch(v, p);
 }
@@ -104,18 +113,17 @@ int member_point_binsearch(const vector<point> &v, const point p, int imin, int 
 			return member_point_binsearch(v, p, imin, imid - 1);
 		else if (v.at(imid) < p)
 			return member_point_binsearch(v, p, imid + 1, imax);
-		else return imid;
+		else 
+			return imid;
 	}
 }
 
-vector<point> pointdup(const vector<point> &v1, const vector<point> &v2, bool v2_ordered)
+void pointdup(const vector<point> &v1, const vector<point> &v2, vector<point> &v3, bool v2_ordered)
 {
-	vector<point> v3;
-	for (int i = 0; i < v1.size(); i++)
+
+	for (unsigned int i = 0; i < v1.size(); i++)
 	{
 		if (member_point(v2, v1.at(i), v2_ordered))
 			v3.push_back(v1.at(i));
 	}
-
-	return v3;
 }
