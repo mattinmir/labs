@@ -71,11 +71,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="classHeader.cpp" />
+    <ClCompile Include="functions.cpp" />
+    <ClCompile Include="shapes.cpp" />
     <ClCompile Include="source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="classHeader.hpp" />
+    <ClInclude Include="shapes.hpp" />
+    <ClInclude Include="functions.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="vector1.txt" />
+    <Text Include="vector2.txt" />
+    <Text Include="vector3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
