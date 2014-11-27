@@ -4,21 +4,13 @@
  *  Created on: 6 Nov 2014
  *      Author: mm5213
  */
-#include <string>
-#include <cmath>
-#include <sstream>
-
-/*
- * classHeader.h
- *
- *  Created on: 6 Nov 2014
- *      Author: mm5213
- */
-
 #ifndef CLASSHEADER_H_
 #define CLASSHEADER_H_
 
 #include <string>
+#include <cmath>
+#include <sstream>
+
 
 class point
 {
