@@ -2,10 +2,14 @@
 #define RECTANGLE_HPP
 
 #include "point.hpp"
+#include "shape.hpp"
 
-class rectangle
+class rectangle : public shape
 {
+public:
+	rectangle(point ip1, point ip2, point ip3, point ip4);
 
+	double get_area() const;
 
 private:
 	point p1;

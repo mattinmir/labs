@@ -1,16 +1,14 @@
 #include "triangle.hpp"
 #include "point.hpp"
-
+#include <cmath>
 
 triangle::triangle(point ip1, point ip2, point ip3) : p1(ip1), p2(ip2), p3(ip3)
 {	}
  
-double get_area()
+double triangle::get_area() const
 {
-
-	return 2.0;
+	return 0.5 * p1.find_distance_to(p2) * sqrt(pow(p1.find_distance_to(p3), 2) - pow(0.5 * p1.find_distance_to(p2), 2)); // 0.5 * base * height
 }
-
 
 double triangle::get_perimeter(triangle tri)
 {

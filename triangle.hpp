@@ -10,7 +10,7 @@ public:
 
 	triangle(point ip1, point ip2, point ip3);
 
-	double get_area();
+	double get_area()const;
 
 	double get_perimeter(triangle tri);
 

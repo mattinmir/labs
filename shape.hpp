@@ -4,7 +4,7 @@
 class shape
 {
 public:
-	virtual double get_area() = 0;
+	virtual double get_area() const = 0;
 
 	virtual ~shape(){}
 };
