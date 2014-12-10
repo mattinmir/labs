@@ -5,7 +5,8 @@
 #include <vector>
 #include <fstream>
 #include <cstdlib>
-#include "shapes.hpp"
+#include "point.hpp"
+#include "triangle.hpp"
 #include "functions.hpp"
 
 using namespace std;
