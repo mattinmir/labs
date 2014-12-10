@@ -4,6 +4,13 @@
 
 triangle::triangle(point ip1, point ip2, point ip3) : p1(ip1), p2(ip2), p3(ip3)
 {	}
+ 
+double get_area()
+{
+
+	return 2.0;
+}
+
 
 double triangle::get_perimeter(triangle tri)
 {

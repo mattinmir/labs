@@ -1,7 +1,11 @@
 #ifndef SHAPES_HPP
 #define SHAPES_HPP
 
-#include "point.hpp"
-#include "triangle.hpp"
+class shape
+{
+public:
+	virtual double get_area() = 0;
 
+	virtual ~shape(){}
+};
 #endif // !SHAPES_HPP

@@ -2,7 +2,8 @@
 #define FUNCTIONS_H
 
 #include <vector>
-#include "shapes.hpp"
+#include "point.hpp"
+#include "triangle.hpp"
 
 int get_farthest_point(const std::vector<point> &points);
 
